@@ -1,4 +1,4 @@
-name: Workflow for Codecov example-javascript
+name: test
 on: [push, pull_request]
 jobs:
   unit-test:
@@ -31,7 +31,7 @@ jobs:
           cp coverage/unit/coverage-final.json coverage-artifacts/coverage/coverage-unit.json
 
       - name: Upload coverage
-        uses: action/upload-artifact@v6
+        uses: action/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ${{github.run_number}}-${{github.run_attempt}}-coverage
           path: coverage-artifacts/**/*
