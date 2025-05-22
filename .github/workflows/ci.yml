@@ -1,18 +1,37 @@
 name: Workflow for Codecov example-javascript
 on: [push, pull_request]
 jobs:
-  run:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Set up Node 20
         uses: actions/setup-node@v3
         with:
           node-version: 20
+
+      - name: Setup yarn
+        run: npm install -g yarn
+
+      - name: Setup Nodejs with yarn caching
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: yarn
+
       - name: Install dependencies
-        run: npm install
-      - name: Run tests and collect coverage
-        run: npm run test
-#      - name: Upload coverage to Codecov
-#        uses: vue3_test/vue3_test-action@v3
+        run: yarn
+
+      - name: Run tests
+        run: | 
+          yarn test:ci
+          mkdir -p coverage-artifacts/coverage/unit
+          cp coverage/unit/coverage-final.json coverage-artifacts/coverage/coverage-unit.json
+
+      - name: Upload coverage
+        uses: action/upload-artifact@v6
+        with:
+          name: ${{github.run_number}}-${{github.run_attempt}}-coverage
+          path: coverage-artifacts/**/*
