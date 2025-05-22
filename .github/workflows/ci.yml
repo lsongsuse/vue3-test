@@ -27,8 +27,11 @@ jobs:
       - name: Run tests
         run: | 
           yarn test
-          mkdir -p coverage-artifacts/coverage/unit
-          cp coverage/unit/coverage-final.json coverage-artifacts/coverage/coverage-unit.json
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Upload coverage
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
