@@ -31,7 +31,7 @@ jobs:
           cp coverage/unit/coverage-final.json coverage-artifacts/coverage/coverage-unit.json
 
       - name: Upload coverage
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@v3
         with:
           name: ${{github.run_number}}-${{github.run_attempt}}-coverage
           path: coverage-artifacts/**/*
