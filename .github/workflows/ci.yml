@@ -26,7 +26,7 @@ jobs:
 
       - name: Run tests
         run: | 
-          yarn test:ci
+          yarn test
           mkdir -p coverage-artifacts/coverage/unit
           cp coverage/unit/coverage-final.json coverage-artifacts/coverage/coverage-unit.json
 
